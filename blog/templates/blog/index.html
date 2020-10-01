@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'style/css/style2.css' %}">
+    <title>Document</title>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand ">
+        <div class="navbar-brand">
+            <img width="70px" src="{% static 'logo/best.jpg' %}" alt="">
+        </div>
+        <div>
+            {% for usr in user.semua_user_masuk.all  %}
+                <p>{{usr.nama_user_masuk}}</p>
+                <img width="40px" src="{{usr.poto_profil.url}}" alt="">
+            {% endfor %}
+        </div>
+        <ul class="navbar-nav margin-auto ml-auto">
+            <li class="nav-item"><a class="nav-link" href="{% url 'blog:index' %}">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'admin:index' %}">Admin</a></li>
+            
+            {% if user.is_authenticated %}
+            <li class="nav-item"><a class="nav-link tombol" href="{% url 'blog:logout_view' %}">Logout</a></li>
+            {% else %}
+            <li class="nav-item ml-lg-4"><a class="nav-link tombol" href="{% url 'blog:login_view' %}">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav><br>
+    <div class="jumbotron">
+        <h1>Selamat Datang {{user}} di Django</h1>
+    </div>
+    <div class="container">
+        
+        {% for post in posts  %}
+            <h2>{{post.nama}}</h2>
+            <p>{{post.status}}</p>
+            <p>{{post.waktu_posting}}</p>
+        {% endfor %}
+            
+    </div>  
+</div>
+
+    
+</body>
+</html>
